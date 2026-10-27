@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLAKES | Artisanal Bakery & Specialty Coffee</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: {
+                            50: '#FAF8F5',
+                            100: '#F4EFE6',
+                            200: '#E8DEC9',
+                        },
+                        amber: {
+                            gold: '#D97706',
+                            warm: '#C58B37',
+                            dark: '#92400E',
+                        },
+                        espresso: {
+                            800: '#2C221E',
+                            900: '#1C1614',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom aesthetics for editorial cafe vibe */
+        .glass-nav {
+            background: rgba(250, 248, 245, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        
+        .img-zoom-container {
+            overflow: hidden;
+        }
+        
+        .img-zoom-container img {
+            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        .img-zoom-container:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Hide scrollbars for slick slider elements */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .badge-pulse {
+            box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.4);
+            animation: pulse-ring 2s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(217, 119, 6, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0); }
+        }
+    </style>
+</head>
+<body class="bg-cream-50 text-espresso-900 font-sans antialiased selection:bg-amber-warm selection:text-white">
+
+    <!-- Top Announcement Ribbon -->
+    <div class="bg-espresso-900 text-cream-100 text-xs md:text-sm py-2.5 px-4 text-center flex justify-between items-center px-6 border-b border-white/10">
+        <div class="hidden md:flex items-center space-x-2 text-amber-warm">
+            <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+            <span class="text-xs font-semibold uppercase tracking-wider text-cream-100">Live Oven Status: Fresh Butter Croissants ready at 11:30 AM</span>
+        </div>
+        <div class="mx-auto md:mx-0 text-center flex items-center gap-2">
+            <span>✨ Morning Special: Free Espresso shot with any Signature Pastry before 10 AM</span>
+        </div>
+        <div class="hidden lg:flex items-center space-x-4 text-xs text-cream-200">
+            <span><i class="fa-regular fa-clock mr-1 text-amber-gold"></i> Open Today: 7:00 AM – 7:00 PM</span>
+            <span><i class="fa-solid fa-location-dot mr-1 text-amber-gold"></i> 482 Hazelwood Ave, Downtown</span>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-40 glass-nav border-b border-cream-200/60 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-full bg-amber-warm/15 flex items-center justify-center text-amber-dark group-hover:bg-amber-warm group-hover:text-white transition-all duration-300">
+                    <i class="fa-solid fa-wheat-awn text-xl"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-serif text-2xl font-bold tracking-tight text-espresso-900 leading-none">FLAKES</span>
+                    <span class="text-[10px] tracking-[0.25em] uppercase font-semibold text-amber-dark">Bakery & Coffee</span>
+                </div>
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="hidden md:flex items-center space-x-8 font-medium text-sm tracking-wide">
+                <a href="#about" class="text-espresso-900/80 hover:text-amber-dark transition-colors">Our Story</a>
+                <a href="#menu" class="text-espresso-900/80 hover:text-amber-dark transition-colors">Menu</a>
+                <a href="#craft" class="text-espresso-900/80 hover:text-amber-dark transition-colors">Craftsmanship</a>
+                <a href="#atmosphere" class="text-espresso-900/80 hover:text-amber-dark transition-colors">Atmosphere</a>
+                <a href="#location" class="text-espresso-900/80 hover:text-amber-dark transition-colors">Visit Us</a>
+            </div>
+
+            <!-- Header Action Buttons -->
+            <div class="flex items-center space-x-3 sm:space-x-4">
+                <!-- Reserve Table Button -->
+                <button onclick="openReservationModal()" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-espresso-900/20 text-xs font-semibold tracking-wider uppercase text-espresso-900 hover:bg-espresso-900 hover:text-cream-50 transition-all duration-300">
+                    <i class="fa-regular fa-calendar text-xs"></i>
+                    <span>Reserve Table</span>
+                </button>
+
+                <!-- Order Online Drawer Trigger -->
+                <button onclick="toggleCartDrawer()" class="relative bg-amber-warm hover:bg-amber-dark text-white px-5 py-2.5 rounded-full font-medium text-sm flex items-center gap-2 shadow-md hover:shadow-lg transition-all duration-300">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="hidden sm:inline">Order Online</span>
+                    <span id="cart-count-badge" class="bg-espresso-900 text-cream-50 text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-espresso-900 hover:text-amber-dark focus:outline-none">
+                    <i class="fa-solid fa-bars-staggered text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cream-100 border-b border-cream-200 px-6 py-4 space-y-3">
+            <a href="#about" onclick="toggleMobileMenu()" class="block text-espresso-900 font-medium py-1">Our Story</a>
+            <a href="#menu" onclick="toggleMobileMenu()" class="block text-espresso-900 font-medium py-1">Menu</a>
+            <a href="#craft" onclick="toggleMobileMenu()" class="block text-espresso-900 font-medium py-1">Craftsmanship</a>
+            <a href="#atmosphere" onclick="toggleMobileMenu()" class="block text-espresso-900 font-medium py-1">Atmosphere</a>
+            <a href="#location" onclick="toggleMobileMenu()" class="block text-espresso-900 font-medium py-1">Visit Us</a>
+            <div class="pt-2 border-t border-cream-200 flex flex-col gap-2">
+                <button onclick="openReservationModal(); toggleMobileMenu();" class="w-full py-2.5 text-center text-xs font-bold uppercase tracking-wider border border-espresso-900 text-espresso-900 rounded-full">
+                    Reserve a Table
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SECTION 1: HERO SECTION -->
+    <section class="relative min-h-[88vh] flex items-center pt-8 pb-16 overflow-hidden">
+        <!-- Soft Background Ambient Glows -->
+        <div class="absolute top-1/4 -left-20 w-96 h-96 bg-amber-warm/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-10 right-0 w-96 h-96 bg-amber-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                
+                <!-- Left Hero Copy -->
+                <div class="lg:col-span-5 space-y-6 text-left z-10">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-200/80 border border-amber-warm/30 text-amber-dark text-xs font-semibold tracking-wider uppercase">
+                        <i class="fa-solid fa-sun text-amber-gold"></i>
+                        <span>Baked Fresh at 5:00 AM Daily</span>
+                    </div>
+
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-espresso-900 leading-[1.15] tracking-tight">
+                        Handcrafted layer by layer, <span class="italic font-serif text-amber-warm">steeped</span> in morning sun.
+                    </h1>
+
+                    <p class="text-espresso-800/80 text-base sm:text-lg leading-relaxed max-w-xl">
+                        Step into Flakes—where 84% French butter, 72-hour slow fermentation, and freshly pulled single-origin espresso converge to turn morning rituals into art.
+                    </p>
+
+                    <div class="pt-2 flex flex-col sm:flex-row gap-4">
+                        <a href="#menu" class="px-8 py-4 bg-espresso-900 hover:bg-espresso-800 text-cream-50 font-medium text-sm rounded-full tracking-wide shadow-xl hover:shadow-2xl transition-all duration-300 text-center flex items-center justify-center gap-3 group">
+                            <span>Explore Morning Menu</span>
+                            <i class="fa-solid fa-arrow-right-long text-amber-warm group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <button onclick="openReservationModal()" class="px-8 py-4 bg-cream-100 hover:bg-cream-200 text-espresso-900 border border-cream-200 font-medium text-sm rounded-full tracking-wide transition-all duration-300 text-center">
+                            Book Table Experience
+                        </button>
+                    </div>
+
+                    <!-- Highlight Badges -->
+                    <div class="pt-6 border-t border-cream-200 grid grid-cols-3 gap-4">
+                        <div>
+                            <span class="block font-serif text-2xl font-bold text-espresso-900">84%</span>
+                            <span class="text-xs text-espresso-800/70 font-medium">Normandy Butter</span>
+                        </div>
+                        <div>
+                            <span class="block font-serif text-2xl font-bold text-espresso-900">72 hrs</span>
+                            <span class="text-xs text-espresso-800/70 font-medium">Slow Dough Craft</span>
+                        </div>
+                        <div>
+                            <span class="block font-serif text-2xl font-bold text-espresso-900">4.9 ★</span>
+                            <span class="text-xs text-espresso-800/70 font-medium">1,400+ Locals</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Hero Photographic Canvas (Requirement #1: Hero Image) -->
+                <div class="lg:col-span-7 relative">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        <!-- Main Hero Image Block -->
+                        <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white/80 img-zoom-container aspect-[4/3] bg-cream-200">
+                            <!-- High quality editorial photo: golden flaky croissant beside ceramic cappuccino on wooden cafe table with morning sunlight -->
+                            <img 
+                                src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&q=80&w=1600" 
+                                alt="Golden flaky artisanal croissant with a ceramic cup of cappuccino on warm wooden café table in morning sunlight"
+                                class="w-full h-full object-cover object-center"
+                                loading="eager"
+                                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=1200';"
+                            >
+                            <!-- Sunlight Gradient Overlay -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-espresso-900/40 via-transparent to-transparent pointer-events-none"></div>
+
+                            <!-- Image Caption Badge -->
+                            <div class="absolute bottom-4 left-4 right-4 p-4 rounded-2xl glass-nav border border-white/40 flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-amber-warm text-white flex items-center justify-center font-serif font-bold text-lg">
+                                        🥐
+                                    </div>
+                                    <div>
+                                        <p class="text-xs font-bold text-espresso-900 uppercase tracking-wider">Flakes Signature Pair</p>
+                                        <p class="text-xs text-espresso-800/80">Classique Butter Croissant & Double Cappuccino</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-serif italic text-amber-dark font-semibold">$10.50</span>
+                            </div>
+                        </div>
+
+                        <!-- Secondary Floating Card -->
+                        <div class="hidden sm:flex absolute -top-6 -left-6 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-cream-200 items-center gap-3 max-w-xs z-20">
+                            <div class="w-12 h-12 rounded-xl bg-amber-warm/15 text-amber-dark flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-mug-hot"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-espresso-900">Direct Trade Coffee</p>
+                                <p class="text-xs text-espresso-800/70">Ethiopia Yirgacheffe notes of bergamot & honey</p>
+                            </div>
+                        </div>
+
+                        <!-- Accent Floating Badge -->
+                        <div class="absolute -bottom-6 -right-6 bg-espresso-900 text-cream-100 p-5 rounded-2xl shadow-2xl border border-white/10 hidden sm:block z-20">
+                            <p class="text-xs font-medium text-amber-warm uppercase tracking-widest">Atmosphere</p>
+                            <p class="font-serif text-lg font-light text-cream-50">"Best crust in the city"</p>
+                            <p class="text-[10px] text-cream-200/60 mt-1">— Culinary Reviewer, 2026</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURE STRIP: OUR CRAFT GUARANTEE -->
+    <section class="bg-cream-100/80 border-y border-cream-200 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div class="p-3">
+                    <div class="w-10 h-10 mx-auto mb-2 text-amber-warm flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <h4 class="font-serif font-semibold text-espresso-900 text-sm sm:text-base">Organic Heritage Flour</h4>
+                    <p class="text-xs text-espresso-800/70 mt-1">Stone-milled, unbleached grain</p>
+                </div>
+                <div class="p-3">
+                    <div class="w-10 h-10 mx-auto mb-2 text-amber-warm flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-cow"></i>
+                    </div>
+                    <h4 class="font-serif font-semibold text-espresso-900 text-sm sm:text-base">Cultured French Butter</h4>
+                    <p class="text-xs text-espresso-800/70 mt-1">AOP Charentes-Poitou 84% fat</p>
+                </div>
+                <div class="p-3">
+                    <div class="w-10 h-10 mx-auto mb-2 text-amber-warm flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-hourglass-half"></i>
+                    </div>
+                    <h4 class="font-serif font-semibold text-espresso-900 text-sm sm:text-base">72-Hour Fermentation</h4>
+                    <p class="text-xs text-espresso-800/70 mt-1">Natural starter, gentle rise</p>
+                </div>
+                <div class="p-3">
+                    <div class="w-10 h-10 mx-auto mb-2 text-amber-warm flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-fire-burner"></i>
+                    </div>
+                    <h4 class="font-serif font-semibold text-espresso-900 text-sm sm:text-base">Small Batch Roasting</h4>
+                    <p class="text-xs text-espresso-800/70 mt-1">Roasted weekly in-house</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: SIGNATURE MENU PHOTOGRAPHY (Requirement #2) -->
+    <section id="menu" class="py-20 bg-cream-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+                <span class="text-xs font-bold tracking-widest text-amber-dark uppercase">Taste the Craftsmanship</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-normal text-espresso-900">Signature Bakery & Espresso Menu</h2>
+                <p class="text-espresso-800/80 text-sm sm:text-base">
+                    Every morning, our master bakers fold, rest, and bake with meticulous timing. Pair your pastry with our micro-lot single-origin coffee.
+                </p>
+
+                <!-- Category Filter Buttons -->
+                <div class="flex flex-wrap justify-center gap-2 pt-6" id="menu-filters">
+                    <button onclick="filterMenu('all')" class="menu-filter-btn active-filter px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-200 bg-espresso-900 text-white shadow">
+                        All Items
+                    </button>
+                    <button onclick="filterMenu('pastry')" class="menu-filter-btn px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-200 bg-cream-100 text-espresso-800 hover:bg-cream-200">
+                        Pastries & Croissants
+                    </button>
+                    <button onclick="filterMenu('coffee')" class="menu-filter-btn px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-200 bg-cream-100 text-espresso-800 hover:bg-cream-200">
+                        Specialty Coffee
+                    </button>
+                    <button onclick="filterMenu('sweet')" class="menu-filter-btn px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-200 bg-cream-100 text-espresso-800 hover:bg-cream-200">
+                        Sweet Treats
+                    </button>
+                </div>
+            </div>
+
+            <!-- MENU GRID (Contains all 6 explicitly requested items) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="menu-grid">
+
+                <!-- ITEM 1: Butter Croissant (Requirement #2) -->
+                <div class="menu-card category-pastry bg-white rounded-3xl overflow-hidden border border-cream-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+                    <div class="relative h-64 overflow-hidden bg-cream-200 img-zoom-container">
+                        <img 
+                            src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&q=80&w=800" 
+                            alt="Butter croissant with visible golden flaky layers"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <span class="absolute top-4 right-4 bg-amber-warm text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
+                            Signature
+                        </span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-serif text-xl font-bold text-espresso-900 group-hover:text-amber-dark transition-colors">Classique Butter Croissant</h3>
+                                <span class="font-serif font-bold text-amber-dark text-lg">$4.75</span>
+                            </div>
+                            <p class="text-xs text-espresso-800/70 leading-relaxed">
+                                Visible, delicate honeycomb layers made with 84% French Normandy AOP butter. Crisp shell with an airy, pillowy crumb.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-cream-100 flex items-center justify-between">
+                            <span class="text-[11px] text-amber-dark font-medium"><i class="fa-solid fa-leaf mr-1"></i>Organic Wheat Flour</span>
+                            <div class="flex items-center gap-2">
+                                <button onclick="quickView('croissant')" class="p-2 text-espresso-900/60 hover:text-espresso-900 transition-colors" title="Quick View">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                                <button onclick="addToCart('Classique Butter Croissant', 4.75, 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&q=80&w=300')" class="px-4 py-2 bg-cream-100 hover:bg-espresso-900 hover:text-white text-espresso-900 text-xs font-semibold rounded-full transition-all duration-200">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM 2: Cinnamon Roll (Requirement #2) -->
+                <div class="menu-card category-sweet bg-white rounded-3xl overflow-hidden border border-cream-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+                    <div class="relative h-64 overflow-hidden bg-cream-200 img-zoom-container">
+                        <img 
+                            src="https://images.unsplash.com/photo-1509365465985-25d11c17e812?auto=format&fit=crop&q=80&w=800" 
+                            alt="Cinnamon roll with delicate cream glaze icing"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <span class="absolute top-4 right-4 bg-espresso-900 text-cream-100 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
+                            Fresh Baked
+                        </span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-serif text-xl font-bold text-espresso-900 group-hover:text-amber-dark transition-colors">Brioche Cinnamon Roll</h3>
+                                <span class="font-serif font-bold text-amber-dark text-lg">$5.50</span>
+                            </div>
+                            <p class="text-xs text-espresso-800/70 leading-relaxed">
+                                Soft brioche dough swirled with Korintje cinnamon and organic brown sugar, topped with delicate vanilla bean glaze.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-cream-100 flex items-center justify-between">
+                            <span class="text-[11px] text-amber-dark font-medium"><i class="fa-solid fa-cubes-stacked mr-1"></i>Vanilla Bean Icing</span>
+                            <div class="flex items-center gap-2">
+                                <button onclick="quickView('cinnamon')" class="p-2 text-espresso-900/60 hover:text-espresso-900 transition-colors" title="Quick View">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                                <button onclick="addToCart('Brioche Cinnamon Roll', 5.50, 'https://images.unsplash.com/photo-1509365465985-25d11c17e812?auto=format&fit=crop&q=80&w=300')" class="px-4 py-2 bg-cream-100 hover:bg-espresso-900 hover:text-white text-espresso-900 text-xs font-semibold rounded-full transition-all duration-200">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM 3: Cappuccino with Latte Art (Requirement #2) -->
+                <div class="menu-card category-coffee bg-white rounded-3xl overflow-hidden border border-cream-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+                    <div class="relative h-64 overflow-hidden bg-cream-200 img-zoom-container">
+                        <img 
+                            src="https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&q=80&w=800" 
+                            alt="Cappuccino with intricate rosetta latte art in a ceramic cup"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-serif text-xl font-bold text-espresso-900 group-hover:text-amber-dark transition-colors">Artisanal Cappuccino</h3>
+                                <span class="font-serif font-bold text-amber-dark text-lg">$5.25</span>
+                            </div>
+                            <p class="text-xs text-espresso-800/70 leading-relaxed">
+                                Equal parts double ristretto espresso, velvety steamed whole milk, and dense microfoam, finished with pouring latte art.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-cream-100 flex items-center justify-between">
+                            <span class="text-[11px] text-amber-dark font-medium"><i class="fa-solid fa-mug-hot mr-1"></i>Micro-lot Roast</span>
+                            <div class="flex items-center gap-2">
+                                <button onclick="quickView('cappuccino')" class="p-2 text-espresso-900/60 hover:text-espresso-900 transition-colors" title="Quick View">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                                <button onclick="addToCart('Artisanal Cappuccino', 5.25, 'https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&q=80&w=300')" class="px-4 py-2 bg-cream-100 hover:bg-espresso-900 hover:text-white text-espresso-900 text-xs font-semibold rounded-full transition-all duration-200">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM 4: Iced Vanilla Latte (Requirement #2) -->
+                <div class="menu-card category-coffee bg-white rounded-3xl overflow-hidden border border-cream-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+                    <div class="relative h-64 overflow-hidden bg-cream-200 img-zoom-container">
+                        <img 
+                            src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&q=80&w=800" 
+                            alt="Iced vanilla latte in a tall clear glass with cold milk layers"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-serif text-xl font-bold text-espresso-900 group-hover:text-amber-dark transition-colors">Iced Madagascar Latte</h3>
+                                <span class="font-serif font-bold text-amber-dark text-lg">$6.00</span>
+                            </div>
+                            <p class="text-xs text-espresso-800/70 leading-relaxed">
+                                Espresso layered over house-made Madagascar bourbon vanilla bean syrup, fresh milk, and clear slow-frozen ice cubes.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-cream-100 flex items-center justify-between">
+                            <span class="text-[11px] text-amber-dark font-medium"><i class="fa-solid fa-glass-water mr-1"></i>House Syrup</span>
+                            <div class="flex items-center gap-2">
+                                <button onclick="quickView('icedlatte')" class="p-2 text-espresso-900/60 hover:text-espresso-900 transition-colors" title="Quick View">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                                <button onclick="addToCart('Iced Madagascar Latte', 6.00, 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&q=80&w=300')" class="px-4 py-2 bg-cream-100 hover:bg-espresso-900 hover:text-white text-espresso-900 text-xs font-semibold rounded-full transition-all duration-200">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM 5: Chocolate Pastry / Pain au Chocolat (Requirement #2) -->
+                <div class="menu-card category-pastry bg-white rounded-3xl overflow-hidden border border-cream-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+                    <div class="relative h-64 overflow-hidden bg-cream-200 img-zoom-container">
+                        <img 
+                            src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&q=80&w=800" 
+                            alt="Pain au chocolat pastry served on a ceramic plate with dusting of cocoa"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-serif text-xl font-bold text-espresso-900 group-hover:text-amber-dark transition-colors">Pain au Chocolat</h3>
+                                <span class="font-serif font-bold text-amber-dark text-lg">$5.25</span>
+                            </div>
+                            <p class="text-xs text-espresso-800/70 leading-relaxed">
+                                Flaky puff dough enveloped around two batons of Valrhona 70% dark single-origin chocolate, baked until gooey and golden.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-cream-100 flex items-center justify-between">
+                            <span class="text-[11px] text-amber-dark font-medium"><i class="fa-solid fa-cookie mr-1"></i>70% Valrhona Dark</span>
+                            <div class="flex items-center gap-2">
+                                <button onclick="quickView('painchocolat')" class="p-2 text-espresso-900/60 hover:text-espresso-900 transition-colors" title="Quick View">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                                <button onclick="addToCart('Pain au Chocolat', 5.25, 'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&q=80&w=300')" class="px-4 py-2 bg-cream-100 hover:bg-espresso-900 hover:text-white text-espresso-900 text-xs font-semibold rounded-full transition-all duration-200">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM 6: Freshly Baked Cookies & Assorted Pastries (Requirement #2) -->
+                <div class="menu-card category-sweet bg-white rounded-3xl overflow-hidden border border-cream-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+                    <div class="relative h-64 overflow-hidden bg-cream-200 img-zoom-container">
+                        <img 
+                            src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&q=80&w=800" 
+                            alt="Assorted freshly baked brown butter chocolate chunk cookies and morning pastries"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-serif text-xl font-bold text-espresso-900 group-hover:text-amber-dark transition-colors">Brown Butter Cookie Box</h3>
+                                <span class="font-serif font-bold text-amber-dark text-lg">$14.00</span>
+                            </div>
+                            <p class="text-xs text-espresso-800/70 leading-relaxed">
+                                Box of 4 handcrafted warm cookies with browned French butter, Maldon sea salt flakes, and dark chocolate chunks.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-cream-100 flex items-center justify-between">
+                            <span class="text-[11px] text-amber-dark font-medium"><i class="fa-solid fa-box-open mr-1"></i>Box of 4 • Fresh Daily</span>
+                            <div class="flex items-center gap-2">
+                                <button onclick="quickView('cookies')" class="p-2 text-espresso-900/60 hover:text-espresso-900 transition-colors" title="Quick View">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                                <button onclick="addToCart('Brown Butter Cookie Box', 14.00, 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&q=80&w=300')" class="px-4 py-2 bg-cream-100 hover:bg-espresso-900 hover:text-white text-espresso-900 text-xs font-semibold rounded-full transition-all duration-200">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: CAFÉ INTERIOR & ATMOSPHERE (Requirement #3) -->
+    <section id="atmosphere" class="py-20 bg-cream-100 border-t border-cream-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-xs font-bold tracking-widest text-amber-dark uppercase">Your Neighborhood Sanctuary</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-normal text-espresso-900 leading-tight">
+                        Warm oak, soft sunlight, & the sound of steam.
+                    </h2>
+                    <p class="text-espresso-800/80 text-sm sm:text-base leading-relaxed">
+                        Designed as a slow-paced respite from the bustling city outside. Whether you come for a quiet morning reading nook, a quick espresso with friends, or to watch the pastry chefs through our glass oven room, Flakes is built to feel like home.
+                    </p>
+
+                    <!-- Features bullets -->
+                    <div class="space-y-4 pt-2">
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-full bg-amber-warm/20 text-amber-dark flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fa-solid fa-chair text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-serif font-bold text-sm text-espresso-900">Custom Wooden Furniture</h4>
+                                <p class="text-xs text-espresso-800/70">Hand-carved white oak tables with comfortable seating for work or conversation.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-full bg-amber-warm/20 text-amber-dark flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fa-solid fa-mug-saucer text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-serif font-bold text-sm text-espresso-900">La Marzocco Espresso Bar</h4>
+                                <p class="text-xs text-espresso-800/70">Custom brass machines calibrated hourly for optimum extraction.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Two Wide Photographic Interior Layouts (Requirement #3) -->
+                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    
+                    <!-- Interior Image 1: Wide shot of cozy cafe -->
+                    <div class="relative rounded-3xl overflow-hidden shadow-lg border-2 border-white img-zoom-container h-80 sm:h-96 bg-cream-200">
+                        <img 
+                            src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=1200" 
+                            alt="Cozy independent café interior with warm wooden furniture, natural lighting, plants and inviting seating"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-espresso-900/60 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4 text-cream-50">
+                            <p class="font-serif text-base font-medium">The Main Dining Hall</p>
+                            <p class="text-[11px] text-cream-200/80">Soft natural morning light & indoor botanical gardens</p>
+                        </div>
+                    </div>
+
+                    <!-- Interior Image 2: Barista preparing coffee & arranging pastries -->
+                    <div class="relative rounded-3xl overflow-hidden shadow-lg border-2 border-white img-zoom-container h-80 sm:h-96 bg-cream-200 sm:translate-y-6">
+                        <img 
+                            src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=1200" 
+                            alt="Barista precisely preparing specialty espresso and arranging freshly baked pastries at the counter"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-espresso-900/60 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4 text-cream-50">
+                            <p class="font-serif text-base font-medium">The Espresso Counter</p>
+                            <p class="text-[11px] text-cream-200/80">Baristas crafting every cup with care & micro-foam precision</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 4: OUR STORY & CRAFTSMANSHIP (Requirement #4) -->
+    <section id="about" class="py-24 bg-cream-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Photographic Showcase of Hand Craftsmanship (Requirement #4) -->
+                <div class="lg:col-span-6 relative">
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white img-zoom-container aspect-[4/3] bg-cream-200">
+                        <img 
+                            src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=1200" 
+                            alt="Artisan baker hands dusted in flour carefully shaping dough and arranging butter croissants on a baking tray"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-tr from-espresso-900/50 via-transparent to-transparent"></div>
+                    </div>
+
+                    <!-- Overlaid Highlight Card -->
+                    <div class="absolute -bottom-6 -right-6 bg-cream-100 border border-amber-warm/30 p-6 rounded-2xl shadow-xl max-w-xs hidden sm:block">
+                        <p class="text-xs font-bold uppercase tracking-wider text-amber-dark">Master Baker Note</p>
+                        <p class="font-serif italic text-sm text-espresso-900 mt-1">
+                            "True lamination cannot be rushed. Cold butter, cool flour, and 72 hours of patience."
+                        </p>
+                        <p class="text-[10px] text-espresso-800/60 mt-2">— Head Baker Antoine V.</p>
+                    </div>
+                </div>
+
+                <!-- Story Text -->
+                <div class="lg:col-span-6 space-y-6">
+                    <span class="text-xs font-bold tracking-widest text-amber-dark uppercase">Our Craft & Philosophy</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-normal text-espresso-900 leading-snug">
+                        Born from a obsession with the perfect flake.
+                    </h2>
+                    <p class="text-espresso-800/80 text-sm sm:text-base leading-relaxed">
+                        Flakes began in 2021 with a simple promise: to eliminate shortcuts from baking. We source organic heritage wheat milled in small batches, combine it with cultured Normandy butter, and let natural starters ferment slowly over three days.
+                    </p>
+                    <p class="text-espresso-800/80 text-sm sm:text-base leading-relaxed">
+                        The result is a delicate pastry shell that crackles upon the first bite, revealing a rich, buttery, feather-light interior that stays true to traditional French viennoiserie roots.
+                    </p>
+
+                    <!-- Quote Box -->
+                    <div class="p-6 rounded-2xl bg-cream-100 border-l-4 border-amber-warm space-y-2">
+                        <p class="font-serif italic text-espresso-900 text-base">
+                            "An unforgettable coffee shop experience isn't just about the caffeine—it's the aroma of warm butter in the air when the sun hits the floorboards."
+                        </p>
+                    </div>
+
+                    <div class="pt-2 flex items-center gap-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-full bg-cream-200 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&q=80&w=200" alt="Baker Antoine" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h5 class="font-serif font-bold text-sm text-espresso-900">Antoine & Sarah</h5>
+                                <p class="text-xs text-espresso-800/60">Co-Founders & Artisan Bakers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: CUSTOMER REVIEWS & COMMUNITY -->
+    <section class="py-20 bg-cream-100 border-y border-cream-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14 space-y-2">
+                <span class="text-xs font-bold tracking-widest text-amber-dark uppercase">Locals & Foodies</span>
+                <h2 class="font-serif text-3xl font-normal text-espresso-900">Loved by the Neighborhood</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="bg-white p-8 rounded-3xl border border-cream-200 shadow-sm flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <div class="flex text-amber-gold text-xs gap-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-xs sm:text-sm text-espresso-800/80 leading-relaxed italic">
+                            "The butter croissant is genuinely on par with the best bakeries in Paris. Flaky layers, crisp bottom, and incredible coffee."
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 pt-4 border-t border-cream-100">
+                        <div class="w-9 h-9 rounded-full bg-amber-warm/20 flex items-center justify-center font-bold text-xs text-amber-dark">
+                            EM
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-espresso-900">Elena Rostova</p>
+                            <p class="text-[10px] text-espresso-800/60">Verified Local • 2 days ago</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-white p-8 rounded-3xl border border-cream-200 shadow-sm flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <div class="flex text-amber-gold text-xs gap-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-xs sm:text-sm text-espresso-800/80 leading-relaxed italic">
+                            "Their Iced Madagascar Vanilla Latte is smooth without being overly sweet. Pair it with the Brioche Cinnamon Roll and your morning is set!"
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 pt-4 border-t border-cream-100">
+                        <div class="w-9 h-9 rounded-full bg-amber-warm/20 flex items-center justify-center font-bold text-xs text-amber-dark">
+                            MC
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-espresso-900">Marcus Chen</p>
+                            <p class="text-[10px] text-espresso-800/60">Verified Local • 1 week ago</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-white p-8 rounded-3xl border border-cream-200 shadow-sm flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <div class="flex text-amber-gold text-xs gap-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-xs sm:text-sm text-espresso-800/80 leading-relaxed italic">
+                            "Such a warm, aesthetic interior. I love sitting near the window with a cappuccino while watching the morning light stream through."
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 pt-4 border-t border-cream-100">
+                        <div class="w-9 h-9 rounded-full bg-amber-warm/20 flex items-center justify-center font-bold text-xs text-amber-dark">
+                            SL
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-espresso-900">Sophia Laurier</p>
+                            <p class="text-[10px] text-espresso-800/60">Verified Local • 3 weeks ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: VISIT US & HOURS & LOCATION -->
+    <section id="location" class="py-20 bg-cream-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-espresso-900 text-cream-100 rounded-3xl overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-12">
+                
+                <!-- Hours & Location Info -->
+                <div class="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-between space-y-8">
+                    <div class="space-y-4">
+                        <span class="text-xs font-bold tracking-widest text-amber-warm uppercase">Visit Our Café</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-normal text-cream-50">Warm drinks & fresh trays await.</h2>
+                        <p class="text-cream-200/70 text-sm leading-relaxed">
+                            Stop by in person or schedule an online pickup for warm, fresh viennoiserie straight out of our morning oven.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-white/10">
+                        <!-- Hours -->
+                        <div class="space-y-2">
+                            <h4 class="font-serif font-semibold text-amber-warm text-base">Opening Hours</h4>
+                            <div class="text-xs space-y-1 text-cream-200/80">
+                                <p class="flex justify-between"><span>Mon – Fri:</span> <span class="font-mono text-white">7:00 AM – 7:00 PM</span></p>
+                                <p class="flex justify-between"><span>Sat – Sun:</span> <span class="font-mono text-white">8:00 AM – 6:00 PM</span></p>
+                                <p class="text-[10px] text-amber-warm/80 pt-1">* Fresh bake cycles at 7am, 10am & 2pm</p>
+                            </div>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="space-y-2">
+                            <h4 class="font-serif font-semibold text-amber-warm text-base">Café Address</h4>
+                            <p class="text-xs text-cream-200/80 leading-relaxed">
+                                482 Hazelwood Avenue<br>
+                                Downtown Arts District, NY 10012<br>
+                                <span class="text-amber-warm">(555) 234-8901</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex flex-wrap gap-4">
+                        <button onclick="openReservationModal()" class="px-6 py-3 bg-amber-warm hover:bg-amber-dark text-white text-xs font-semibold uppercase tracking-wider rounded-full transition-all duration-200">
+                            Book Table Online
+                        </button>
+                        <a href="https://maps.google.com" target="_blank" class="px-6 py-3 border border-white/20 hover:border-white text-white text-xs font-semibold uppercase tracking-wider rounded-full transition-all duration-200 flex items-center gap-2">
+                            <i class="fa-solid fa-diamond-turn-right text-amber-warm"></i> Get Directions
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Interactive Visual Map Card -->
+                <div class="lg:col-span-6 bg-cream-200 relative min-h-[320px] lg:min-h-full">
+                    <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&q=80&w=1000" alt="Café location map visual background" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-espresso-900/30"></div>
+                    
+                    <!-- Map Pin Overlay -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="bg-white p-4 rounded-2xl shadow-2xl border border-cream-200 text-center space-y-2 max-w-xs animate-bounce">
+                            <div class="w-10 h-10 mx-auto rounded-full bg-amber-warm text-white flex items-center justify-center text-lg shadow-md">
+                                <i class="fa-solid fa-mug-hot"></i>
+                            </div>
+                            <p class="font-serif font-bold text-espresso-900 text-sm">FLAKES Bakery & Café</p>
+                            <p class="text-[11px] text-espresso-800/70">482 Hazelwood Ave</p>
+                            <span class="inline-block bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">Open Now</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER / REWARD STRIP -->
+    <section class="py-16 bg-cream-200/60 border-t border-cream-200">
+        <div class="max-w-4xl mx-auto px-4 text-center space-y-4">
+            <div class="w-12 h-12 mx-auto rounded-full bg-amber-warm/20 text-amber-dark flex items-center justify-center text-xl">
+                <i class="fa-regular fa-envelope"></i>
+            </div>
+            <h3 class="font-serif text-2xl font-normal text-espresso-900">Join the Morning Club</h3>
+            <p class="text-xs sm:text-sm text-espresso-800/70 max-w-md mx-auto">
+                Subscribe for weekly secret menu alerts, fresh bake timings, and receive 15% off your first online order.
+            </p>
+            <form onsubmit="handleNewsletterSubmit(event)" class="flex flex-col sm:flex-row gap-2 max-w-md mx-auto pt-2">
+                <input type="email" required placeholder="Enter your email address" class="flex-1 px-5 py-3 rounded-full border border-cream-200 focus:outline-none focus:ring-2 focus:ring-amber-warm text-xs bg-white">
+                <button type="submit" class="px-6 py-3 bg-espresso-900 hover:bg-espresso-800 text-cream-50 text-xs font-semibold rounded-full uppercase tracking-wider transition-all">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-espresso-900 text-cream-200/80 text-xs py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-amber-warm/20 flex items-center justify-center text-amber-warm">
+                        <i class="fa-solid fa-wheat-awn"></i>
+                    </div>
+                    <span class="font-serif text-xl font-bold tracking-tight text-white">FLAKES</span>
+                </div>
+                <div class="flex flex-wrap gap-6 text-cream-200/70 font-medium">
+                    <a href="#about" class="hover:text-amber-warm transition-colors">Our Story</a>
+                    <a href="#menu" class="hover:text-amber-warm transition-colors">Menu</a>
+                    <a href="#atmosphere" class="hover:text-amber-warm transition-colors">Atmosphere</a>
+                    <a href="#location" class="hover:text-amber-warm transition-colors">Hours & Location</a>
+                </div>
+                <div class="flex items-center space-x-4 text-base text-amber-warm">
+                    <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center text-[11px] text-cream-200/50 gap-2">
+                <p>© 2026 FLAKES Artisanal Bakery & Café. All rights reserved.</p>
+                <p>Designed around authentic café photography & craftsmanship.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SLIDE-OVER ONLINE ORDER DRAWER -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden pointer-events-none transition-opacity duration-300 opacity-0">
+        <!-- Backdrop -->
+        <div id="cart-backdrop" onclick="toggleCartDrawer()" class="absolute inset-0 bg-espresso-900/60 backdrop-blur-sm transition-opacity"></div>
+
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-cream-50 shadow-2xl flex flex-col pointer-events-auto transform translate-x-full transition-transform duration-300 ease-in-out" id="cart-panel">
+                
+                <!-- Drawer Header -->
+                <div class="p-6 bg-cream-100 border-b border-cream-200 flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-bag-shopping text-amber-dark"></i>
+                        <h3 class="font-serif font-bold text-espresso-900 text-lg">Your Order Bag</h3>
+                    </div>
+                    <button onclick="toggleCartDrawer()" class="p-2 text-espresso-900/60 hover:text-espresso-900">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+
+                <!-- Drawer Content -->
+                <div class="flex-1 overflow-y-auto p-6 space-y-4" id="cart-items-container">
+                    <!-- Dynamic cart items will render here -->
+                    <div id="cart-empty-state" class="text-center py-12 space-y-3">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-cream-200 text-amber-dark flex items-center justify-center text-2xl">
+                            <i class="fa-solid fa-basket-shopping"></i>
+                        </div>
+                        <p class="font-serif text-espresso-900 font-medium">Your bag is currently empty.</p>
+                        <p class="text-xs text-espresso-800/60">Add fresh croissants or espresso drinks from our signature menu.</p>
+                    </div>
+                </div>
+
+                <!-- Drawer Footer & Checkout -->
+                <div class="p-6 bg-white border-t border-cream-200 space-y-4">
+                    <div class="space-y-1.5 text-xs text-espresso-800/80">
+                        <div class="flex justify-between">
+                            <span>Subtotal</span>
+                            <span id="cart-subtotal" class="font-mono font-bold">$0.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Local Sales Tax (8%)</span>
+                            <span id="cart-tax" class="font-mono">$0.00</span>
+                        </div>
+                        <div class="flex justify-between font-bold text-sm text-espresso-900 pt-2 border-t border-cream-100">
+                            <span>Estimated Total</span>
+                            <span id="cart-total" class="font-serif text-amber-dark text-lg">$0.00</span>
+                        </div>
+                    </div>
+
+                    <button onclick="checkoutOrder()" class="w-full py-3.5 bg-amber-warm hover:bg-amber-dark text-white text-xs font-semibold uppercase tracking-wider rounded-full shadow-lg transition-all">
+                        Proceed to Pickup Checkout
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- QUICK VIEW MODAL -->
+    <div id="quickview-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-espresso-900/60 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-3xl max-w-xl w-full overflow-hidden shadow-2xl relative border border-cream-200">
+            <button onclick="closeQuickView()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/80 backdrop-blur-md text-espresso-900 flex items-center justify-center shadow hover:bg-white">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="quickview-content">
+                <!-- Dynamically injected -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TABLE RESERVATION MODAL -->
+    <div id="reservation-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-espresso-900/60 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative border border-cream-200 space-y-6">
+            <button onclick="closeReservationModal()" class="absolute top-4 right-4 text-espresso-800/60 hover:text-espresso-900">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            
+            <div class="text-center space-y-1">
+                <span class="text-xs font-bold uppercase tracking-wider text-amber-dark">Reserve Your Seat</span>
+                <h3 class="font-serif text-2xl font-normal text-espresso-900">Book a Café Table</h3>
+            </div>
+
+            <form onsubmit="handleReservationSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-espresso-900 uppercase tracking-wider mb-1">Full Name</label>
+                    <input type="text" required placeholder="Jane Doe" class="w-full px-4 py-2.5 rounded-xl border border-cream-200 text-xs focus:ring-2 focus:ring-amber-warm focus:outline-none">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-espresso-900 uppercase tracking-wider mb-1">Date</label>
+                        <input type="date" required class="w-full px-4 py-2.5 rounded-xl border border-cream-200 text-xs focus:ring-2 focus:ring-amber-warm focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-espresso-900 uppercase tracking-wider mb-1">Time</label>
+                        <select required class="w-full px-4 py-2.5 rounded-xl border border-cream-200 text-xs focus:ring-2 focus:ring-amber-warm focus:outline-none">
+                            <option>8:00 AM</option>
+                            <option>9:30 AM</option>
+                            <option>11:00 AM</option>
+                            <option>1:30 PM</option>
+                            <option>3:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-espresso-900 uppercase tracking-wider mb-1">Guests</label>
+                    <select required class="w-full px-4 py-2.5 rounded-xl border border-cream-200 text-xs focus:ring-2 focus:ring-amber-warm focus:outline-none">
+                        <option>1 Person</option>
+                        <option>2 People</option>
+                        <option>3-4 People</option>
+                        <option>5+ Group</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full py-3.5 bg-espresso-900 hover:bg-espresso-800 text-cream-50 text-xs font-semibold uppercase tracking-wider rounded-full shadow-lg transition-all mt-2">
+                    Confirm Reservation
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // State Management
+        let cart = [];
+        const menuDetails = {
+            'croissant': {
+                name: 'Classique Butter Croissant',
+                price: 4.75,
+                image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&q=80&w=800',
+                desc: 'Slow-laminated with 84% French Normandy AOP butter over 72 hours. Features visible honeycomb layers and a golden crisp shell.',
+                notes: 'Flavor notes: Rich toasted butter, subtle hazelnut, clean caramel finish.',
+                pair: 'Best paired with our Artisanal Cappuccino'
+            },
+            'cinnamon': {
+                name: 'Brioche Cinnamon Roll',
+                price: 5.50,
+                image: 'https://images.unsplash.com/photo-1509365465985-25d11c17e812?auto=format&fit=crop&q=80&w=800',
+                desc: 'Soft cultured brioche dough swirled with Korintje cinnamon, dark brown sugar, and finished with delicate vanilla icing.',
+                notes: 'Flavor notes: Warm spice, Madagascar vanilla, soft buttery dough.',
+                pair: 'Best paired with Iced Vanilla Latte'
+            },
+            'cappuccino': {
+                name: 'Artisanal Cappuccino',
+                price: 5.25,
+                image: 'https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&q=80&w=800',
+                desc: 'Double ristretto shot pulled from Ethiopian Yirgacheffe beans, combined with glossy microfoam and poured with rosetta art.',
+                notes: 'Flavor notes: Bergamot citrus sweetness, cocoa nibs, velvet body.',
+                pair: 'Best paired with Classique Butter Croissant'
+            },
+            'icedlatte': {
+                name: 'Iced Madagascar Latte',
+                price: 6.00,
+                image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&q=80&w=800',
+                desc: 'In-house brewed Madagascar vanilla bean syrup layered with fresh whole milk and double espresso over slow-frozen ice.',
+                notes: 'Flavor notes: Creamy vanilla bean, toasted sugar, smooth espresso.',
+                pair: 'Best paired with Brioche Cinnamon Roll'
+            },
+            'painchocolat': {
+                name: 'Pain au Chocolat',
+                price: 5.25,
+                image: 'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&q=80&w=800',
+                desc: 'Classic French chocolate croissant dough enveloping two dark batons of Valrhona 70% single origin cacao.',
+                notes: 'Flavor notes: Bittersweet dark chocolate, flaky butter pastry.',
+                pair: 'Best paired with Flat White or Americano'
+            },
+            'cookies': {
+                name: 'Brown Butter Cookie Box',
+                price: 14.00,
+                image: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&q=80&w=800',
+                desc: 'Four large cookies crafted with deeply browned French butter, bittersweet chocolate chunks, and sprinkled with Maldon sea salt.',
+                notes: 'Flavor notes: Toffee butterscotch, rich dark chocolate, savory sea salt.',
+                pair: 'Best paired with Cold Brew Coffee'
+            }
+        };
+
+        // Filter Menu Items
+        function filterMenu(category) {
+            const buttons = document.querySelectorAll('.menu-filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-espresso-900', 'text-white', 'shadow');
+                btn.classList.add('bg-cream-100', 'text-espresso-800');
+            });
+            event.target.classList.remove('bg-cream-100', 'text-espresso-800');
+            event.target.classList.add('bg-espresso-900', 'text-white', 'shadow');
+
+            const cards = document.querySelectorAll('.menu-card');
+            cards.forEach(card => {
+                if (category === 'all') {
+                    card.style.display = 'flex';
+                } else {
+                    if (card.classList.contains(`category-${category}`)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        // Cart Slide-over Functions
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            const panel = document.getElementById('cart-panel');
+            
+            if (drawer.classList.contains('pointer-events-none')) {
+                drawer.classList.remove('pointer-events-none', 'opacity-0');
+                drawer.classList.add('opacity-100');
+                panel.classList.remove('translate-x-full');
+            } else {
+                panel.classList.add('translate-x-full');
+                drawer.classList.remove('opacity-100');
+                drawer.classList.add('opacity-0');
+                setTimeout(() => {
+                    drawer.classList.add('pointer-events-none');
+                }, 300);
+            }
+        }
+
+        function addToCart(name, price, image) {
+            const existing = cart.find(item => item.name === name);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ name, price, image, qty: 1 });
+            }
+            updateCartUI();
+            showToast(`Added "${name}" to your order.`);
+        }
+
+        function updateCartQty(index, delta) {
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const emptyState = document.getElementById('cart-empty-state');
+            const badge = document.getElementById('cart-count-badge');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            badge.textContent = totalItems;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div id="cart-empty-state" class="text-center py-12 space-y-3">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-cream-200 text-amber-dark flex items-center justify-center text-2xl">
+                            <i class="fa-solid fa-basket-shopping"></i>
+                        </div>
+                        <p class="font-serif text-espresso-900 font-medium">Your bag is currently empty.</p>
+                        <p class="text-xs text-espresso-800/60">Add fresh croissants or espresso drinks from our signature menu.</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = cart.map((item, idx) => `
+                    <div class="flex items-center gap-4 bg-white p-3.5 rounded-2xl border border-cream-200 shadow-sm">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 rounded-xl object-cover bg-cream-200">
+                        <div class="flex-1">
+                            <h4 class="font-serif font-bold text-xs text-espresso-900">${item.name}</h4>
+                            <p class="text-xs font-mono text-amber-dark font-semibold">$${(item.price * item.qty).toFixed(2)}</p>
+                            <div class="flex items-center gap-2 mt-1">
+                                <button onclick="updateCartQty(${idx}, -1)" class="w-5 h-5 rounded bg-cream-100 hover:bg-cream-200 text-espresso-900 flex items-center justify-center text-xs font-bold">-</button>
+                                <span class="text-xs font-mono font-semibold">${item.qty}</span>
+                                <button onclick="updateCartQty(${idx}, 1)" class="w-5 h-5 rounded bg-cream-100 hover:bg-cream-200 text-espresso-900 flex items-center justify-center text-xs font-bold">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Subtotal, Tax, Total
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const tax = subtotal * 0.08;
+            const total = subtotal + tax;
+
+            document.getElementById('cart-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('cart-tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('cart-total').textContent = `$${total.toFixed(2)}`;
+        }
+
+        function checkoutOrder() {
+            if (cart.length === 0) {
+                showToast("Please add items to your bag before checking out.");
+                return;
+            }
+            showToast("Order placed successfully! Pickup ready in 15 minutes.");
+            cart = [];
+            updateCartUI();
+            toggleCartDrawer();
+        }
+
+        // Quick View Modal
+        function quickView(key) {
+            const item = menuDetails[key];
+            if (!item) return;
+
+            const modal = document.getElementById('quickview-modal');
+            const content = document.getElementById('quickview-content');
+
+            content.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <div class="h-64 md:h-full bg-cream-200">
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 space-y-4 flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <span class="text-[10px] font-bold tracking-widest text-amber-dark uppercase">Artisanal Details</span>
+                            <h3 class="font-serif text-2xl font-bold text-espresso-900">${item.name}</h3>
+                            <p class="font-serif font-bold text-lg text-amber-dark">$${item.price.toFixed(2)}</p>
+                            <p class="text-xs text-espresso-800/80 leading-relaxed pt-2">${item.desc}</p>
+                            <p class="text-[11px] text-amber-dark font-medium italic pt-1">${item.notes}</p>
+                            <p class="text-[11px] text-espresso-900 font-semibold pt-1"><i class="fa-solid fa-star text-amber-gold mr-1"></i>${item.pair}</p>
+                        </div>
+                        <button onclick="addToCart('${item.name}', ${item.price}, '${item.image}'); closeQuickView();" class="w-full py-3 bg-espresso-900 hover:bg-espresso-800 text-cream-50 text-xs font-semibold uppercase tracking-wider rounded-full shadow-md transition-all">
+                            Add to Bag
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.classList.add('opacity-100');
+            }, 10);
+        }
+
+        function closeQuickView() {
+            const modal = document.getElementById('quickview-modal');
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Reservation Modal
+        function openReservationModal() {
+            const modal = document.getElementById('reservation-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.classList.add('opacity-100');
+            }, 10);
+        }
+
+        function closeReservationModal() {
+            const modal = document.getElementById('reservation-modal');
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function handleReservationSubmit(e) {
+            e.preventDefault();
+            closeReservationModal();
+            showToast("Table reserved! We've sent confirmation to your email.");
+        }
+
+        function handleNewsletterSubmit(e) {
+            e.preventDefault();
+            e.target.reset();
+            showToast("Welcome to the Morning Club! Your 15% discount code is FLAKES15.");
+        }
+
+        // Mobile Nav Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Toast Notification System
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-espresso-900 text-cream-50 text-xs font-medium px-4 py-3 rounded-2xl shadow-2xl border border-white/20 flex items-center gap-3 transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-auto';
+            toast.innerHTML = `
+                <i class="fa-solid fa-circle-check text-amber-warm"></i>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-4', 'opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
